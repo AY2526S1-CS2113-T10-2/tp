@@ -86,7 +86,7 @@ Format: `view plan`
 
 ### View Modules required for a Specialisation: `spec {Specialisation}`
 
-Displays current study plan, with modules chosen by the user, in their respective semester.
+Displays modules required for the respective CEG specialisations.
 
 Format: `spec {Specialisation}`
 

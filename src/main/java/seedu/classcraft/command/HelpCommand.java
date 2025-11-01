@@ -37,7 +37,7 @@ public class HelpCommand extends Command {
                 + "8. add-completed - Adds a module as already completed.\n   Format: add-completed {MODULE_CODE}\n\n"
                 + "9. add-exempted - Adds a module as exempted.\n   Format: add-exempted {MODULE_CODE}\n\n"
                 + "10. progress - View your current degree progress.\n   Format: progress\n\n"
-                + "11. spec - View Modules required for a specialisation.\n   Format: spec {SPECIALISATION} "
+                + "11. spec - View modules required for a CEG specialisation.\n   Format: spec {SPECIALISATION} "
                 + "(SPECIALISATION: ae,4.0,iot,robotics,st)\n\n"
                 + "12. balance - Balances workload of study plan \n   Format: balance\n";
 
