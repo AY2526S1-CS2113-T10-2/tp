@@ -47,7 +47,7 @@ public class AddCommand extends Command {
             ui.printMessage("Prerequisite Error:\n" + e.getMessage());
         } catch (IllegalArgumentException e) {
             // Handle invalid semester errors
-            ui.printMessage("Invalid semester: " + e.getMessage());
+            ui.printMessage("Invalid input: " + e.getMessage());
         } catch (Exception e) {
             // Handle other errors (API failures, etc.)
             ui.printMessage("Error adding module: " + e.getMessage());

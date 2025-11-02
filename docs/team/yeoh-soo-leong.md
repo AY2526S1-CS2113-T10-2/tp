@@ -33,10 +33,10 @@ Given below are my contributions to the project.
 - **Documentation:**
     - User Guide:
         - Added documentation for the feature `spec`
-        - Added documentation for the feature `balance`
+        - Added documentation for the feature `check`
     - Developer Guide:
         - Added implementation details of the `spec` feature
-        - Added implementation details of the `balance` feature
+        - Added implementation details of the `check` feature
           - Contributed to the creation of Class and Sequence Diagrams
 
 

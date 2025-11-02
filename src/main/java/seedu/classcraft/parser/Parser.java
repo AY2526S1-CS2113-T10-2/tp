@@ -4,6 +4,7 @@ import seedu.classcraft.command.AddCommand;
 import seedu.classcraft.command.AddExemptedCommand;
 import seedu.classcraft.command.BalanceCommand;
 import seedu.classcraft.command.CalcCreditsCommand;
+import seedu.classcraft.command.CheckCommand;
 import seedu.classcraft.command.Command;
 import seedu.classcraft.command.CommandList;
 import seedu.classcraft.command.DeleteCommand;
@@ -17,10 +18,11 @@ import seedu.classcraft.command.ViewCurrentPlanCommand;
 import seedu.classcraft.command.ViewGradReqCommand;
 import seedu.classcraft.command.ViewProgressCommand;
 import seedu.classcraft.command.ViewSamplePlanCommand;
-
 import seedu.classcraft.exceptions.EmptyInstruction;
 import seedu.classcraft.studyplan.ModuleStatus;
 
+import java.net.URL; 
+import java.util.Objects; 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,6 +45,7 @@ public class Parser {
      * @param userInput The full user input string.
      */
     public Parser(String userInput) {
+        setLoggerLevel();
         assert userInput != null : "User input must not be null";
         this.userInputString = userInput.stripLeading();
         logger.log(Level.INFO, "Received user input: " + userInputString);
@@ -116,14 +119,18 @@ public class Parser {
             case "prereq":
                 String prereqModuleCode = parsePrereq();
                 return new PrereqCommand(prereqModuleCode);
+            
             case "balance":
                 return new BalanceCommand();
-            case "set_current_sem":
+            case "set_current_sem": 
                 int semesterToSet = parseSetCurrentSem();
                 if (semesterToSet == -1) {
                     return new InvalidCommand();
                 }
                 return new SetCurrentSemCommand(semesterToSet);
+            case "check":
+                return new CheckCommand();
+
             default:
                 return new InvalidCommand();
             }
@@ -155,6 +162,7 @@ public class Parser {
             if (instructions.length == 1) {
                 if (!(instructions[0].equals("help") || instructions[0].equals("exit")
                         || instructions[0].equals("balance")
+                        || instructions[0].equals("check")
                         || instructions[0].equals("progress"))) {
                     throw new IllegalArgumentException("OOPS!!! The description of a " +
                             instructions[0] + " cannot be empty.");
@@ -174,7 +182,7 @@ public class Parser {
      * Checks if the command is found in the CommandList enum.
      *
      * @param instructions Array of strings containing command and instructions,
-     *                     which checks the first element of the array.
+     * which checks the first element of the array.
      * @return boolean indicating if the command is found.
      */
     private boolean isCommandFound(String[] instructions) {
@@ -188,7 +196,9 @@ public class Parser {
      * Throws EmptyInstruction if the command is not valid.
      */
     private void handleSingleInstruction(String[] instructions) throws EmptyInstruction {
-        if (!(instructions[0].equals("help") || instructions[0].equals("exit") || instructions[0].equals("balance")
+        if (!(instructions[0].equals("help") || instructions[0].equals("exit")
+                || instructions[0].equals("balance") // Kept from bug-fixing
+                || instructions[0].equals("check") // Kept from master
                 || instructions[0].equals("confirm") || instructions[0].equals("progress"))) {
             logger.log(Level.WARNING, "Detected empty description for command: " + instructions[0]);
             throw new EmptyInstruction(instructions[0]);
@@ -316,6 +326,7 @@ public class Parser {
     }
 
     // @@author ashpasa
+
     /**
      * Parses the user input for mc command.
      * Expects either a semester number or "total".
@@ -426,6 +437,7 @@ public class Parser {
         }
     }
 
+
     /**
      * Parses the user input for set-current-sem command.
      * Expects a single integer.
@@ -445,5 +457,25 @@ public class Parser {
             return -1;
         }
     }
-}
 
+    /**
+     * Sets logger level depending on how the program is run.
+     * When running from a jar file, it disables logging.
+     * Otherwise, when running from an IDE, it displays all logging messages.
+     */
+    public void setLoggerLevel() {
+        String className = "/" + this.getClass().getName().replace('.', '/') + ".class";
+        URL resource = this.getClass().getResource(className);
+
+        if (resource == null) {
+            return;
+        }
+
+        String protocol = resource.getProtocol();
+        if (Objects.equals(protocol, "jar")) {
+            logger.setLevel(Level.OFF);
+        } else if (Objects.equals(protocol, "file")) {
+            logger.setLevel(Level.ALL);
+        }
+    }
+}
