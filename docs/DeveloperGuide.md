@@ -35,6 +35,7 @@ The bulk of ClassCraft's functionality is handled by the following components:
 + `ui`: The UI of the programme, and the only point of interaction with the user.
 
 ### Command Component
+![Class Diagram for Command](/UMLdiagrams/Class_Diagram_Commands.png)
 
 The `command` package contains all the commands that can be carried out by the user.
 Each command is represented by a class that extends the abstract `Command` class.
