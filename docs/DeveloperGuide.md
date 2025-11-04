@@ -20,8 +20,6 @@ package and its role and functionality.
 
 **Main components of the architecture**
 
-![Class Diagram showing the associations between classes](/UMLdiagrams/Class_Diagram.png)
-
 `ClassCraft.java` (containing only the `ClassCraft` class) is the main entry point into the programme. It handles
 startup and is responsible for cleanup after the programme is exited.
 
@@ -35,8 +33,6 @@ The bulk of ClassCraft's functionality is handled by the following components:
 + `storage`: Responsible for saving the user's study plan.
 + `studyplan`: Handles actions relating to the study plan.
 + `ui`: The UI of the programme, and the only point of interaction with the user.
-
-### How the architecture components interact with each other
 
 ### Command Component
 
@@ -477,6 +473,3 @@ If the file is edited manually, ensure that the format is maintained as
  
 `EXEMPTED - {MODULE_CODE1}:EXEMPTED, {MODULE_CODE2}:EXEMPTED, ...`
  
-
-
-    
